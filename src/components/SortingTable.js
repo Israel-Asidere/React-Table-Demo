@@ -1,10 +1,10 @@
 import React, {useMemo} from 'react'
-import {useTable} from 'react-table/dist/react-table.development'
+import {useTable, useSortBy} from 'react-table/dist/react-table.development'
 import MOCK_DATA from './MOCK_DATA.json'
 import {COLUMNS, GROUPED_COLUMNS} from './columns'
 import './table.css'
 
-export const BasicTable = () => {
+export const SortingTable = () => {
     const columns = useMemo(() => GROUPED_COLUMNS, [])
     const data = useMemo(() => MOCK_DATA, [])
  
@@ -15,19 +15,21 @@ export const BasicTable = () => {
         footerGroups,
         rows,
         prepareRow
-    } = useTable({columns, data})
+    } = useTable({columns, data}, useSortBy)
 
     return (<table{...getTableProps()}>
         <thead> {
             headerGroups.map((headerGroup) => (<tr {...headerGroup.getHeaderGroupProps()}> {
-                headerGroup.headers.map((column) => (<th {...column.getHeaderProps()}> {
-                    column.render('Header')
-                }</th>))
+                headerGroup.headers.map((column) => (<th {...column.getHeaderProps(column.getSortByToggleProps())}> {
+                    column.render('Header')}
+                    <span> {column.isSorted ? (column.isSortedDesc ? '🔻' : '🔺') : ''}
+                     </span>
+                </th>))
             } </tr>))
         } </thead>
 
         <tbody{...getTableBodyProps()}> {
-            rows.map((row) => {
+            rows.map(row => {
                 prepareRow(row)
                 return (<tr{...row.getRowProps()}> {
                     row.cells.map((cell) => {

@@ -1,12 +1,13 @@
 import React, {useMemo} from 'react'
-import {useTable} from 'react-table/dist/react-table.development'
+import {useTable, useRowSelect} from 'react-table/dist/react-table.development'
 import MOCK_DATA from './MOCK_DATA.json'
-import {COLUMNS, GROUPED_COLUMNS} from './columns'
+import {COLUMNS} from './columns'
 import './table.css'
+import { Checkbox } from '@material-ui/core'
 
-export const BasicTable = () => {
-    const columns = useMemo(() => GROUPED_COLUMNS, [])
-    const data = useMemo(() => MOCK_DATA, [])
+export const RowSelection = () => {
+        const columns = useMemo(() => COLUMNS, [])
+        const data = useMemo(() => MOCK_DATA, [])
  
     const {
         getTableProps,
@@ -14,10 +15,28 @@ export const BasicTable = () => {
         headerGroups,
         footerGroups,
         rows,
-        prepareRow
-    } = useTable({columns, data})
+        prepareRow, 
+        selectedFlatRows
+    } = useTable({columns, data}, useRowSelect, (hooks) => {
+        hooks.visibleColumns.push((columns) => {
+            return [
+                {
+                    id: 'selection',
+                    Header: ({getToggleAllRowsSelectedProps}) => (
+                        <Checkbox{...getToggleAllRowsSelectedProps()}/>
+                    ), 
+                    Cell: ({row}) => (
+                        <Checkbox{...row.getToggleRowSelectedProps()}/>
+                    )
+                }, 
+                ...columns
+            ]
+        })
+    })
 
-    return (<table{...getTableProps()}>
+    const firstPageRows = rows.slice(0,10)
+
+    return (<><table{...getTableProps()}>
         <thead> {
             headerGroups.map((headerGroup) => (<tr {...headerGroup.getHeaderGroupProps()}> {
                 headerGroup.headers.map((column) => (<th {...column.getHeaderProps()}> {
@@ -27,7 +46,7 @@ export const BasicTable = () => {
         } </thead>
 
         <tbody{...getTableBodyProps()}> {
-            rows.map((row) => {
+            firstPageRows.map((row) => {
                 prepareRow(row)
                 return (<tr{...row.getRowProps()}> {
                     row.cells.map((cell) => {
@@ -51,6 +70,17 @@ export const BasicTable = () => {
                 } </td>))
             } </tr>))
         } </tfoot>
-    </table>)
+    </table>
+    <pre>
+            <code>
+                {JSON.stringify(
+                    {
+                        selectedFlatRows: selectedFlatRows.map((row) => row.original),
+                    },
+                    null,
+                    2
+                )}
+            </code>
+        </pre></>)
 }
 
