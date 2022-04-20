@@ -1,86 +1,86 @@
-import { ColumnFilter } from "./ColumnFilter"
+import {ColumnFilter} from "./ColumnFilter"
 
 export const COLUMNS = [
     {
         Header: 'Id',
-        Footer: 'Id', 
+        Footer: 'Id',
         accessor: 'id',
-        Filter: ColumnFilter,
-    }, 
+        Filter: ColumnFilter
+    },
     {
         Header: 'Full Name',
         Footer: 'Full Name',
-        accessor:'full_name',
-        Filter: ColumnFilter,
+        accessor: 'full_name',
+        Filter: ColumnFilter
     },
     {
         Header: 'Gender',
         Footer: 'Gender',
-        accessor:'gender',
-        Filter: ColumnFilter,
+        accessor: 'gender',
+        Filter: ColumnFilter
     },
     {
         Header: 'Age',
         Footer: 'Age',
-        accessor:'age',
-        Filter: ColumnFilter,
-    },
-    {
+        accessor: 'age',
+        Filter: ColumnFilter
+    }, {
         Header: 'Email',
         Footer: 'Email',
-        accessor:'email',
-        Filter: ColumnFilter,
-    },
-    {
+        accessor: 'email',
+        Filter: ColumnFilter
+    }, {
         Header: 'Date Submitted',
         Footer: 'Date Submitted',
         accessor: 'date_submitted',
-        Filter: ColumnFilter,
+        Filter: ColumnFilter
     },
 
 ]
 
 export const GROUPED_COLUMNS = [
-    { 
+    {
         Header: 'Id',
-        Footer: 'Id', 
+        Footer: 'Id',
         accessor: 'id'
-    },
-    { 
+
+    }, {
         Header: 'Personal Info',
-        Footer: 'Personal Info ', 
+        Footer: 'Personal Info ',
+        // Filter: ColumnFilter,
         columns: [
             {
                 Header: 'Full Name',
                 Footer: 'Full Name',
-                accessor:'full_name'
-            },
-            {
+                accessor: 'full_name',
+                Filter: ColumnFilter
+            }, {
                 Header: 'Gender',
                 Footer: 'Gender',
-                accessor:'gender'
-            },
-            {
+                accessor: 'gender',
+                Filter: ColumnFilter
+            }, {
                 Header: 'Age',
                 Footer: 'Age',
-                accessor:'age'
+                accessor: 'age',
+                Filter: ColumnFilter
             }
- 
+
         ]
-    },
-    {
+    }, {
         Header: ' Other Info',
         Footer: 'Other Info',
         columns: [
             {
                 Header: 'Email',
                 Footer: 'Email',
-                accessor:'email'
-            },
-            {
+                accessor: 'email',
+                Filter: ColumnFilter
+            }, {
                 Header: 'Date Submitted',
                 Footer: 'Date Submitted',
-                accessor: 'date_submitted'
+                accessor: 'date_submitted',
+                Filter: ColumnFilter
             }
         ]
     }

@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, useState} from 'react'
 import {useTable, useRowSelect} from 'react-table/dist/react-table.development'
 import MOCK_DATA from './MOCK_DATA.json'
 import {COLUMNS} from './columns'
@@ -8,6 +8,16 @@ import { Checkbox } from '@material-ui/core'
 export const RowSelection = () => {
         const columns = useMemo(() => COLUMNS, [])
         const data = useMemo(() => MOCK_DATA, [])
+        const [segun, setSegun] = useState([])
+
+        
+        
+        // const what = segun.map(see => {
+        //     let res = 0
+        //     res += see
+        // })
+        // console.log(what)
+
  
     const {
         getTableProps,
@@ -71,16 +81,39 @@ export const RowSelection = () => {
             } </tr>))
         } </tfoot>
     </table>
-    <pre>
-            <code>
-                {JSON.stringify(
-                    {
-                        selectedFlatRows: selectedFlatRows.map((row) => row.original),
-                    },
-                    null,
-                    2
-                )}
-            </code>
-        </pre></>)
+    {
+        selectedFlatRows.map(single  => {
+            let res = 0
+            single.original.age.map(two => {
+                res =+ two
+            })
+            console.log(res)
+        })
+    }
+    </> 
+    
+       // <pre>
+    //         <code>
+    //             {JSON.stringify(
+    //                 {
+    //                     selectedFlatRows: selectedFlatRows.map((row) => row.original),
+    //                 },
+    //                 null,
+    //                 2
+    //             )}
+    //         </code>
+    //     </pre>
+    
+        )
+     
+
+       // {console.log(selectedFlatRows.map((single) => {
+    //     // let total = 0
+    //     single.original.age.map(one => {
+    //         console.log(one)
+    //     })
+    //     return;
+    // }))}
+
 }
 

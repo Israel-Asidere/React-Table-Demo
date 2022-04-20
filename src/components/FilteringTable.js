@@ -1,13 +1,15 @@
 import React, {useMemo} from 'react'
-import {useTable, useGlobalFilter,useFilters} from 'react-table/dist/react-table.development'
+import {useTable, useGlobalFilter,useFilters, defaultColumn} from 'react-table/dist/react-table.development'
 import MOCK_DATA from './MOCK_DATA.json'
-import {COLUMNS, GROUPED_COLUMNS} from './columns'
+import { COLUMNS, GROUPED_COLUMNS} from './columns'
 import './table.css'
 import { GlobalFilter } from './GlobalFilter'
+// import { ColumnFilter } from './ColumnFilter'
 
 export const FilteringTable = () => {
-    const columns = useMemo(() => GROUPED_COLUMNS, [])
+    const columns = useMemo(() => COLUMNS, [])
     const data = useMemo(() => MOCK_DATA, [])
+    //const DefaultColumn = useMemo(Filter, ColumnFilter)
  
     const {
         getTableProps,
@@ -31,7 +33,7 @@ export const FilteringTable = () => {
                 headerGroup.headers.map((column) => (<th {...column.getHeaderProps()}> {
                     column.render('Header')
                 }
-                {/* <div>{column.canFilter ? column.render('Filter') : null}</div> */}
+                 { <div>{column.canFilter ? column.render('Filter') : null}</div> } 
                 </th>))
             } </tr>))
         } </thead>
